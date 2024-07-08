@@ -1,9 +1,22 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
+
+//images/logo
 import logo from '../assets/logo 1.png';
+
+//Icons
 import { CiUser } from 'react-icons/ci';
 import { CiHeart } from 'react-icons/ci';
 import { IoCartOutline } from 'react-icons/io5';
+
+//clerk
+import {
+	SignedIn,
+	SignedOut,
+	SignInButton,
+	UserButton,
+} from '@clerk/clerk-react';
+
 function NavBarComponent() {
 	return (
 		<div className='bg-mainBlue lg:h-[100px] h-full flex items-center flex-col  lg:flex-row '>
@@ -26,9 +39,12 @@ function NavBarComponent() {
 				<div className='flex items-center gap-[15px] justify-end'>
 					<div className='flex items-center gap-[5px]'>
 						<CiUser size={24} color='white' />
-						<span className='text-textWhite text-[18px]'>
-							Sign in
-						</span>
+						<SignedOut>
+							<SignInButton />
+						</SignedOut>
+						<SignedIn>
+							<UserButton showName />
+						</SignedIn>
 					</div>
 
 					<div className='flex items-center gap-[5px]'>
