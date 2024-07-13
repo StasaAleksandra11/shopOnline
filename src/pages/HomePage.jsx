@@ -3,6 +3,7 @@ import ProductService from '../services/ProductService';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveAllProductsAction } from '../store/productSlice';
 import CardComponent from '../components/CardComponent';
+import SingleProductPage from './SingleProductPage';
 
 function HomePage() {
 	const { allProducts, isLoading } = useSelector(
@@ -20,9 +21,9 @@ function HomePage() {
 	}, []);
 
 	return (
-		<div>
+		<div className='container mx-auto'>
 			{isLoading ? 
-				<div>
+				<div className='flex flex-wrap justify-center items-center gap-[10px]'>
 					{allProducts.map((product) => {
 						return (
 							<CardComponent key={product.id} product={product} />
@@ -31,7 +32,9 @@ function HomePage() {
 				</div> : 
 				<div>is Loading...</div>
 			}
+			
 		</div>
+
 	);
 }
 

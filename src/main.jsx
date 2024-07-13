@@ -5,6 +5,8 @@ import './index.css';
 
 //Pages
 import HomePage from './pages/HomePage.jsx';
+import SingleProductPage from './pages/SingleProductPage.jsx';
+
 
 //router
 import {
@@ -35,6 +37,11 @@ const router = createBrowserRouter([
 				path: '/',
 				element: <HomePage />,
 			},
+			{
+				path: '/singleProduct/:id',
+				element: <SingleProductPage />
+			}
+			
 		],
 	},
 ]);

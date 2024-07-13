@@ -20,7 +20,7 @@ function HeaderComponent({setActiveHeader}) {
 					<CiDeliveryTruck size={24} />
 					<span>Truck our order</span>
 				</div>
-        <IoMdClose size={24} onClick={() => setActiveHeader(false)}/>
+        <IoMdClose size={24} onClick={() => setActiveHeader(false)} className=' cursor-pointer'/>
 			</div>
 		</div>
 	);
