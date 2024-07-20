@@ -3,20 +3,24 @@ import { useParams } from 'react-router-dom';
 
 import SingleProductService from '../services/SingleProductService';
 import { Rating } from '@mui/material';
+import { saveInCartAction } from '../store/cartSlice';
 
 /*icons*/
-import { FaCheck, FaEllipsis } from 'react-icons/fa6';
+import { FaCheck } from 'react-icons/fa6';
 import { RxCross1 } from 'react-icons/rx';
 import { IoMdHeartEmpty } from 'react-icons/io';
-import { FaShippingFast } from "react-icons/fa";
+import { FaShippingFast } from 'react-icons/fa';
 
+//link
+import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 function SingleProductPage() {
 	let { id } = useParams();
 	const [singleProduct, setSinglePoduct] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentImage, setCurrentImage] = useState(0);
-	const [countProduct, setCountProduct] = useState(1)
+	const [countProduct, setCountProduct] = useState(1);
 
 	useEffect(() => {
 		SingleProductService.getSingleProduct(id)
@@ -26,16 +30,27 @@ function SingleProductPage() {
 			})
 			.catch((err) => console.log(err));
 	});
+
+	const dispatch = useDispatch();
+
 	function handleImage(index) {
 		setCurrentImage(index);
 	}
+
+	function handdleProductCart() {
+		dispatch(saveInCartAction(singleProduct));
+	}
+
 	return (
 		<div className='px-[20px]'>
 			{isLoading ? (
 				<div className='container mx-auto flex flex-col lg:flex-row gap-[40px] lg:gap-[20px]  '>
 					{/*Left Side */}
 					<div className=' w-full lg:w-[50%]'>
-						<img src={singleProduct.images[currentImage]} className='max-h-[400px ]' />
+						<img
+							src={singleProduct.images[currentImage]}
+							className='max-h-[400px ]'
+						/>
 						<div className='flex justify-center gap-[20px]'>
 							{singleProduct.images.map((el, index) => {
 								return (
@@ -112,19 +127,26 @@ function SingleProductPage() {
 							</div>
 						</div>
 						<div className='flex items-center mt-[20px] gap-[20px]'>
-							<button className='bg-mainYellow text-textWhite px-[26px] py-[12px] rounded-lg'>
+							<NavLink
+								to={'/cart'}
+								className='bg-mainYellow text-textWhite px-[26px] py-[12px] rounded-lg'
+								onClick={handdleProductCart}>
 								Add to Card
-							</button>
+							</NavLink>
 							<div className=' bg-[#EEE] p-[10px] rounded-full'>
 								<IoMdHeartEmpty size={30} />
 							</div>
 						</div>
-						<hr className='my-[20px]'/>
+						<hr className='my-[20px]' />
 						<div className='flex items-center gap-[20px]'>
-							<FaShippingFast size={26}/>
-							<span className='text-gray-500'>{singleProduct.shippingInformation}</span>
+							<FaShippingFast size={26} />
+							<span className='text-gray-500'>
+								{singleProduct.shippingInformation}
+							</span>
 						</div>
-						<p className='text-gray-500 font-semibold'>{singleProduct.returnPolicy}</p>
+						<p className='text-gray-500 font-semibold'>
+							{singleProduct.returnPolicy}
+						</p>
 					</div>
 				</div>
 			) : (

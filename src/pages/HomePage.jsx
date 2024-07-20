@@ -14,7 +14,7 @@ function HomePage() {
 	useEffect(() => {
 		ProductService.getAllProductService()
 			.then((res) => {
-        console.log(res.data.products)
+        
 				dispatch(saveAllProductsAction(res.data.products));
 			})
 			.catch((err) => console.log(err));

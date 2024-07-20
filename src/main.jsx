@@ -6,6 +6,7 @@ import './index.css';
 //Pages
 import HomePage from './pages/HomePage.jsx';
 import SingleProductPage from './pages/SingleProductPage.jsx';
+import CartPage from './pages/CartPage.jsx'
 
 
 //router
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
 			{
 				path: '/singleProduct/:id',
 				element: <SingleProductPage />
+			},
+			{
+				path: '/cart',
+				element: <CartPage/>
 			}
 			
 		],
