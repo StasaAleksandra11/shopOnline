@@ -8,12 +8,12 @@ import { saveInCartAction } from '../store/cartSlice';
 /*icons*/
 import { FaCheck } from 'react-icons/fa6';
 import { RxCross1 } from 'react-icons/rx';
-import { IoMdHeartEmpty } from 'react-icons/io';
 import { FaShippingFast } from 'react-icons/fa';
-
+import { FaHeart } from "react-icons/fa";
 //link
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateFavoriteAction } from '../store/favoriteSlice';
 
 function SingleProductPage() {
 	let { id } = useParams();
@@ -21,6 +21,9 @@ function SingleProductPage() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentImage, setCurrentImage] = useState(0);
 	const [countProduct, setCountProduct] = useState(1);
+	const [favoriteIdIcon, setFavoriteIdIcon] = useState(null);
+	const { allFavorite } = useSelector((state) => state.favoriteStore);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		SingleProductService.getSingleProduct(id)
@@ -31,8 +34,19 @@ function SingleProductPage() {
 			.catch((err) => console.log(err));
 	});
 
-	const dispatch = useDispatch();
-
+	useEffect(() => {
+		if (allFavorite.lenght > 0) {
+			allFavorite.find((item) => {
+				if (item.id === singleProduct.id) {
+					setFavoriteIdIcon(item.id);
+					return;
+				}
+			})
+		} else {
+			setFavoriteIdIcon(null);
+		}
+	}, [allFavorite]);
+	
 	function handleImage(index) {
 		setCurrentImage(index);
 	}
@@ -133,8 +147,20 @@ function SingleProductPage() {
 								onClick={handdleProductCart}>
 								Add to Card
 							</NavLink>
-							<div className=' bg-[#EEE] p-[10px] rounded-full'>
-								<IoMdHeartEmpty size={30} />
+							<div className=' bg-[#EEE] p-[10px] rounded-full cursor-pointer'>
+								{favoriteIdIcon === parseInt(id) ? <FaHeart
+									size={30}
+									color='red'
+									onClick={() => {
+										dispatch(updateFavoriteAction(singleProduct));
+									}}
+								/> : <FaHeart
+								size={30}
+								
+								onClick={() => {
+									dispatch(updateFavoriteAction(singleProduct));
+								}}
+							/>}
 							</div>
 						</div>
 						<hr className='my-[20px]' />

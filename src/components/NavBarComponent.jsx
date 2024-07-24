@@ -25,13 +25,15 @@ import { useSelector } from 'react-redux';
 function NavBarComponent() {
     const[totalProductLs, setTotalProductLs] = useState(0)
 	const { totalProduct } = useSelector((state) => state.cartStore);
-	
+	const {favoriteTotal} = useSelector((state) => state.favoriteStore )
     useEffect(() =>{
 		
 		let lsTotal =  JSON.parse(localStorage.getItem('cart_total'))
 
 		if(lsTotal){
 			setTotalProductLs(lsTotal)
+		} else{
+			setTotalProductLs(0)
 		}
 
 	},[totalProduct])
@@ -71,11 +73,11 @@ function NavBarComponent() {
 					<div className='flex items-center gap-[5px]'>
 						<CiHeart size={24} color='white' />
 						<span className='bg-mainYellow text-textWhite w-[20px] h-[20px] flex justify-center items-center rounded-[50%]'>
-							0
+							{favoriteTotal}
 						</span>
-						<span className='text-textWhite text-[18px]'>
+						<Link to='/favorite' className='text-textWhite text-[18px]'>
 							Favorite
-						</span>
+						</Link>
 					</div>
 
 					<div className='flex items-center gap-[5px]'>

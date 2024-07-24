@@ -7,6 +7,7 @@ import './index.css';
 import HomePage from './pages/HomePage.jsx';
 import SingleProductPage from './pages/SingleProductPage.jsx';
 import CartPage from './pages/CartPage.jsx'
+import FavoritePage from './pages/FavoritePage.jsx'
 
 
 //router
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
 			{
 				path: '/cart',
 				element: <CartPage/>
+			},
+			{
+				path: '/favorite',
+				element: <FavoritePage/>
 			}
 			
 		],
