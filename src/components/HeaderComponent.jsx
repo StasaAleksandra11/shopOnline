@@ -7,7 +7,7 @@ function HeaderComponent({setActiveHeader}) {
   
 
 	return (
-		<div className='container flex mx-auto justify-between  items-center h-[80px] flex-col lg:flex-row py-[10px]'>
+		<div className='container flex mx-auto justify-between  items-center h-[80px] flex-col lg:flex-row py-[10px] '>
 			<p>Need help? Call us: <a className='text-blue-500' href='tel:(+98) 0234 456 789 '>(+98) 0234 456 789</a></p>
 			{/*right side*/}
 		<div className='flex items-center gap-[10px]'>

@@ -20,24 +20,32 @@ import {
 //router
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveSearchProductAction } from '../store/productSlice';
 
 function NavBarComponent() {
-    const[totalProductLs, setTotalProductLs] = useState(0)
+	const [totalProductLs, setTotalProductLs] = useState(0);
+	const [searchProducts, setSearchProducts] = useState('');
 	const { totalProduct } = useSelector((state) => state.cartStore);
-	const {favoriteTotal} = useSelector((state) => state.favoriteStore )
-    useEffect(() =>{
-		
-		let lsTotal =  JSON.parse(localStorage.getItem('cart_total'))
+	const { favoriteTotal } = useSelector(
+		(state) => state.favoriteStore
+	);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		let lsTotal = JSON.parse(localStorage.getItem('cart_total'));
 
-		if(lsTotal){
-			setTotalProductLs(lsTotal)
-		} else{
-			setTotalProductLs(0)
+		if (lsTotal) {
+			setTotalProductLs(lsTotal);
+		} else {
+			setTotalProductLs(0);
 		}
+	}, [totalProduct]);
 
-	},[totalProduct])
-	
+	function handleSearchProducts() {
+		console.log(searchProducts)
+		dispatch(saveSearchProductAction(searchProducts));
+		setSearchProducts('');
+	}
 
 	return (
 		<div className='bg-mainBlue lg:h-[100px] h-full flex items-center flex-col  lg:flex-row '>
@@ -52,15 +60,19 @@ function NavBarComponent() {
 						type='text'
 						placeholder='Search any things'
 						className=' bg-transparent outline-none px-[20px] py-[15px] rounded-[20px] placeholder:text-mainYellow text-mainBlue'
+						value={searchProducts}
+						onChange={(e) => setSearchProducts(e.target.value)}
 					/>
-					<button className='bg-mainYellow px-[20px] py-[15px] rounded-[20px] text-textWhite'>
+					<button
+						className='bg-mainYellow px-[20px] py-[15px] rounded-[20px] text-textWhite'
+						onClick={handleSearchProducts}>
 						Search
 					</button>
 				</div>
 
 				{/*loginSystem & cart/Favorite */}
 				<div className='flex items-center gap-[15px] justify-end'>
-					<div className='flex items-center gap-[5px]'>
+					<div className='flex items-center gap-[5px] text-textWhite'>
 						<CiUser size={24} color='white' />
 						<SignedOut>
 							<SignInButton />
@@ -75,7 +87,9 @@ function NavBarComponent() {
 						<span className='bg-mainYellow text-textWhite w-[20px] h-[20px] flex justify-center items-center rounded-[50%]'>
 							{favoriteTotal}
 						</span>
-						<Link to='/favorite' className='text-textWhite text-[18px]'>
+						<Link
+							to='/favorite'
+							className='text-textWhite text-[18px]'>
 							Favorite
 						</Link>
 					</div>

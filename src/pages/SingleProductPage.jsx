@@ -65,7 +65,7 @@ function SingleProductPage() {
 							src={singleProduct.images[currentImage]}
 							className='max-h-[400px ]'
 						/>
-						<div className='flex justify-center gap-[20px]'>
+						<div className='flex justify-center gap-[20px] flex-wrap'>
 							{singleProduct.images.map((el, index) => {
 								return (
 									<img

@@ -5,6 +5,7 @@ const categorySlice = createSlice({
     initialState: {
         allCategory : [],
         isLoading : false
+       
 
     },
      reducers : {
@@ -13,6 +14,7 @@ const categorySlice = createSlice({
             state.allCategory = action.payload
             state.isLoading = true;
         }
+
     }
 })
 
