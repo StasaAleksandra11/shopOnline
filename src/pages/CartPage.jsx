@@ -17,6 +17,7 @@ function CartPage() {
 	const [activeCode, setActiveCode] = useState('')
 	const dispatch = useDispatch();
 
+	//alphanedim
 	const couponRef = useRef()
 
 	const { cart, totalPrice } = useSelector(
